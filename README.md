@@ -31,9 +31,9 @@ Este script muestra:
 - Establecimiento de canal cifrado AES para comunicación segura.
 
 ## Estructura del repositorio
-protocolo_negociacion.py: código principal con la simulación del protocolo.
-docs/: documentación adicional y referencias teóricas.
-scripts/: scripts auxiliares para pruebas y análisis.
+- protocolo_negociacion.py: código principal con la simulación del protocolo.
+- docs/: documentación adicional y referencias teóricas.
+- scripts/: scripts auxiliares para pruebas y análisis.
 
 ## Contribuciones
 Bienvenidas contribuciones para:

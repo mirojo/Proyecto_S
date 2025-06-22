@@ -1,4 +1,16 @@
 # Retos Técnicos del Proyecto S: Análisis Detallado y Soluciones
+---
+
+## 📋 Índice
+
+1. [Protocolos de Identificación y Autenticación](#1-protocolos-de-identificación-y-autenticación-mutua)
+2. [Negociación Dinámica y Segura](#2-negociación-dinámica-y-segura)
+3. [Lenguajes y Representaciones Comunes](#3-lenguajes-y-representaciones-comunes)
+4. [Supervisión y Auditoría](#4-mecanismos-de-supervisión-y-auditoría)
+5. [Interoperabilidad](#5-interoperabilidad-con-infraestructuras-existentes)
+6. [Roadmap de Implementación](#roadmap-de-implementación)
+
+---
 
 ## 1. Protocolos de Identificación y Autenticación Mutua
 

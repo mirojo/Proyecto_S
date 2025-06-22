@@ -1,2 +1,10 @@
-txt# CDML dependencies
+# Existing dependencies
+socket
+threading
+logging
+json
+datetime
+
+# CDML dependencies  
 cryptography>=3.4.8
+xml.etree.ElementTree  # Built-in Python

@@ -203,4 +203,158 @@ print(f"Confianza: {trust:.2f}")
 engine.set_trust_level("partner-agent-001", 0.8)
 ```
 
-## 🧪 Ejemplo
+## 🧪 Ejemplo Completo
+
+```python
+#!/usr/bin/env python3
+"""
+Ejemplo completo de uso de CDML
+"""
+
+from cdml import (
+    CDMLNegotiationEngine, AgentType, 
+    ThreatIntelligence, IOC, ToolInformation
+)
+
+def main():
+    # Crear motor de negociación
+    honeypot = CDMLNegotiationEngine("honeypot-001", AgentType.HONEYPOT)
+    
+    # Crear inteligencia de muestra
+    intel = ThreatIntelligence()
+    intel.indicators = [
+        IOC(type="ip", value="192.168.1.100", confidence=0.9),
+        IOC(type="domain", value="evil-site.com", confidence=0.8)
+    ]
+    intel.tools = [
+        ToolInformation(name="hydra", usage="brute-force", effectiveness=0.7)
+    ]
+    intel.confidence = 0.85
+    
+    # Iniciar descubrimiento
+    discovery = honeypot.initiate_discovery("scanner-002")
+    print("=== DISCOVERY MESSAGE ===")
+    print(discovery.to_xml())
+    
+    # Proponer intercambio
+    proposal = honeypot.propose_intelligence_exchange(
+        target_agent="scanner-002",
+        threat_intel=intel,
+        requested_info="attack-vectors"
+    )
+    
+    print("\n=== PROPOSAL MESSAGE ===")
+    print(proposal.to_xml())
+    
+    # Mostrar estadísticas
+    stats = honeypot.get_statistics()
+    print(f"\n=== ESTADÍSTICAS ===")
+    print(f"Sesiones activas: {stats['active_sessions']}")
+    print(f"Agentes conocidos: {stats['known_agents']}")
+
+if __name__ == "__main__":
+    main()
+```
+
+## 🏗️ Estructura del Proyecto
+
+```
+cdml/
+├── __init__.py           # Exportaciones principales
+├── README.md            # Este archivo
+├── specification.md     # Especificación técnica completa
+├── core/
+│   ├── __init__.py      # Exportaciones del core
+│   ├── types.py         # Tipos de datos y enums
+│   ├── message.py       # Clase CDMLMessage
+│   ├── validator.py     # Validador de mensajes
+│   └── engine.py        # Motor de negociación
+├── examples/
+│   ├── basic_usage.py   # Ejemplos básicos
+│   └── advanced_scenarios.py  # Casos avanzados
+└── tests/
+    ├── test_message.py   # Tests de mensajes
+    ├── test_validator.py # Tests de validación
+    └── test_engine.py    # Tests del motor
+```
+
+## 🔧 Configuración
+
+### Configurar Motor de Negociación
+```python
+engine = CDMLNegotiationEngine("my-agent", AgentType.HONEYPOT)
+
+# Configurar parámetros
+engine.config.update({
+    "min_trust_for_engagement": 0.3,
+    "max_concurrent_sessions": 20,
+    "session_timeout": 7200,  # 2 horas
+    "intelligence_quality_threshold": 0.6,
+    "auto_accept_threshold": 0.9
+})
+```
+
+### Callback de Inteligencia
+```python
+def intelligence_handler(intel, source):
+    """Manejar inteligencia recibida"""
+    print(f"Nueva inteligencia de {source}")
+    # Procesar y almacenar inteligencia
+    
+engine = CDMLNegotiationEngine(
+    agent_id="honeypot-001",
+    agent_type=AgentType.HONEYPOT,
+    intelligence_callback=intelligence_handler
+)
+```
+
+## 🔍 Debugging y Logging
+
+```python
+import logging
+
+# Configurar logging para CDML
+logging.getLogger('CDML').setLevel(logging.DEBUG)
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logging.getLogger('CDML').addHandler(handler)
+```
+
+## 📋 Requisitos
+
+- Python 3.8+
+- xml.etree.ElementTree (incluido en Python)
+- cryptography (para funcionalidades de seguridad avanzadas)
+- datetime, uuid, hashlib (incluidos en Python)
+
+## 🤝 Contribuir
+
+1. Fork del proyecto
+2. Crear rama para nueva funcionalidad
+3. Implementar mejoras con tests
+4. Documentar cambios
+5. Enviar Pull Request
+
+### Áreas de Mejora
+- Protocolos de seguridad avanzados
+- Integración con STIX/TAXII
+- Soporte para más tipos de inteligencia
+- Optimización de rendimiento
+- Dashboard web para monitoreo
+
+## 📞 Soporte
+
+- **Issues**: [GitHub Issues](../../issues)
+- **Documentación**: Ver `specification.md` para detalles técnicos
+- **Ejemplos**: Revisar carpeta `examples/`
+
+## 📄 Licencia
+
+MIT License - Ver archivo LICENSE para detalles.
+
+---
+
+**Desarrollado por**: María Rojo (@mirojo)  
+**LinkedIn**: [María Rojo](https://www.linkedin.com/in/mar%C3%ADa-rojo/)  
+**Proyecto**: [Proyecto S](https://github.com/mirojo/Proyecto_S)
